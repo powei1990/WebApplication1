@@ -1,0 +1,72 @@
+﻿@using WebApplication1.Models;
+@{
+
+}
+@model List<People>
+<h2>QueryAll</h2>
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+<div id="app">
+    <button type="button" class="btn btn-primary"  @@click="searchData()"> hit me</button>
+    <p>{{ msg }}</p>
+</div>
+    <ul>
+        @foreach (People item in Model)
+        {
+            <li>@item.name</li>
+        }
+    </ul>
+
+    <div id="app2">
+        <table>
+            <tr>
+                <th>id</th>
+                <th>Name</th>
+                <th>Phone</th>
+            </tr>
+
+            @foreach (People item in Model)
+            {
+                <tr>
+                    <td>@item.id</td>
+                    <td>@item.name</td>
+                    <td>@item.phone_number</td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    <script>
+    function show() {
+        console.log("click");
+
+    }
+    var app = new Vue({
+            el: '#app',
+            data: {
+                msg: {
+                    id: '',
+                    name: '',
+                    phone_number: '',
+                }
+            },
+            methods: {
+                searchData() {
+                    const _url = '@Url.Action("QueryAll", "People")';
+                    const _data = this.msg;
+                    console.log("serchData");
+                    axios.post(_url, _data).then((res) => {
+                        /*console.table(res.data)*/
+                        let data = res.data;
+                        this.msg = data;
+                        //console.log(this.list)
+                    }).catch((err) => {
+                        console.error(err)
+                    });
+                }
+            }
+        })
+    </script>
