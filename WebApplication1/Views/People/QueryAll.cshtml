@@ -10,8 +10,10 @@
     }
 </style>
 <div id="app">
+    <input type="text" v-model="searchItem.name"/>
+    <input type="text" v-model="searchItem.phone_number"/>
     <button type="button" class="btn btn-primary" @@click="searchData()"> hit me</button>
-    <p>{{ msg }}</p>
+    <p>{{ msg.name }}</p>
     <table>
         <tr>
             <th>id</th>
@@ -58,17 +60,17 @@
     }
     var app = new Vue({
             el: '#app',
-            data: {
-                msg: {
-                    id: '',
-                    name: '',
-                    phone_number: '',
-                }
+        data: {
+            searchItem: {
+                name: '',
+                phone_number: '',
+            },
+                msg: []
             },
             methods: {
                 searchData() {
                     const _url = '@Url.Action("QueryAll", "People")';
-                    const _data = this.msg;
+                    const _data = this.searchItem;
                     console.log("serchData");
                     axios.post(_url, _data).then((res) => {
                         /*console.table(res.data)*/

@@ -45,6 +45,7 @@ namespace WebApplication1.Controllers
             }
             using (SqlDataBase db = new SqlDataBase())
             {
+
                 string _sql = $"SELECT TOP (1000) [id] ,[name]  ,[phone_number] FROM[paulsql].[dbo].[Table_1]";
                 DataTable _dt = db.ToDataTable(_sql);
 
