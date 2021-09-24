@@ -10,9 +10,19 @@
     }
 </style>
 <div id="app">
-    <input type="text" v-model="searchItem.name"/>
-    <input type="text" v-model="searchItem.phone_number"/>
-    <button type="button" class="btn btn-primary" @@click="searchData()"> hit me</button>
+    <div>
+        <input type="text" v-model="searchItem.name" />
+        <input type="text" v-model="searchItem.phone_number" />
+        <button type="button" class="btn btn-primary" @@click="searchData()">查詢</button>
+    </div>
+    <hr />
+    <div>
+        <input type="text" v-model="editItem.name" />
+        <input type="text" v-model="editItem.phone_number" />
+        <button type="button" class="btn btn-primary" @@click="addData()">新增</button>
+    </div>
+
+
     <p>{{ msg.name }}</p>
     <table>
         <tr>
@@ -27,6 +37,19 @@
         </tr>
     </table>
 </div>
+
+
+@*<div>
+    <form action="/">
+        <label for="fname">Name:</label><br>
+        <input type="text" id="name" name="name" value="name"><br>
+        <label for="lname">Phone Number:</label><br>
+        <input type="text" id="ph" name="phone_number" value="09xxx"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>*@
+
+
     <ul>
         @foreach (People item in Model)
         {
@@ -65,6 +88,7 @@
                 name: '',
                 phone_number: '',
             },
+            editItem: {},
                 msg: []
             },
             methods: {
@@ -77,6 +101,20 @@
                         let data = res.data;
                         this.msg = data;
                         //console.log(this.list)
+                    }).catch((err) => {
+                        console.error(err)
+                    });
+                },
+
+                 addData() {
+                    const _url = '@Url.Action("AddPeople", "People")';
+                    const _data = this.editItem;
+
+                    axios.post(_url, _data).then((res) => {
+                        let data = response.data;
+                        //this.searchData();
+                        //this.dialog.edit_view = false;
+                        console.log(data)
                     }).catch((err) => {
                         console.error(err)
                     });

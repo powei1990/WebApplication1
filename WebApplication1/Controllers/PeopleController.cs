@@ -35,20 +35,21 @@ namespace WebApplication1.Controllers
         {
             ViewBag.Message = "Your QueryAll page.";
             UserRepository _repository = new UserRepository();
-            List<People> _data = _repository.getList(data);
+            List<People> _data = _repository.QueryPeople(data);
 
             return Content(JsonConvert.SerializeObject(_data), "application/json");
         }
 
 
-        //[HttpPost]
-        //public ActionResult UserSearch(People search)
-        //{
-        //    UserRepository _repository = new UserRepository();
-        //    List<People> _data = _repository.getList(search);
+        [HttpPost]
+        public ActionResult AddPeople(People adddata)
+        {
+            bool _flag = false;
+            UserRepository _repository = new UserRepository();
+            _flag = _repository.AddPeople(adddata);
 
-        //    return Content(JsonConvert.SerializeObject(_data), "application/json");
-        //}
+            return Json(_flag);
+        }
 
 
     }
