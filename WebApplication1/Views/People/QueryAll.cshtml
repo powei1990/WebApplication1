@@ -21,6 +21,11 @@
         <input type="text" v-model="editItem.phone_number" />
         <button type="button" class="btn btn-primary" @@click="addData()">新增</button>
     </div>
+    <hr />
+    <div>
+        <input type="text" v-model="delItem.id" />
+        <button type="button" class="btn btn-primary" @@click="delData()">刪除</button>
+    </div>
 
 
     <p>{{ msg.name }}</p>
@@ -40,43 +45,43 @@
 
 
 @*<div>
-    <form action="/">
-        <label for="fname">Name:</label><br>
-        <input type="text" id="name" name="name" value="name"><br>
-        <label for="lname">Phone Number:</label><br>
-        <input type="text" id="ph" name="phone_number" value="09xxx"><br><br>
-        <input type="submit" value="Submit">
-    </form>
-</div>*@
+        <form action="/">
+            <label for="fname">Name:</label><br>
+            <input type="text" id="name" name="name" value="name"><br>
+            <label for="lname">Phone Number:</label><br>
+            <input type="text" id="ph" name="phone_number" value="09xxx"><br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>*@
 
 
-    <ul>
+<ul>
+    @foreach (People item in Model)
+    {
+        <li>@item.name</li>
+    }
+</ul>
+
+<div id="app2">
+    <table>
+        <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>Phone</th>
+        </tr>
+
         @foreach (People item in Model)
         {
-            <li>@item.name</li>
-        }
-    </ul>
-
-    <div id="app2">
-        <table>
             <tr>
-                <th>id</th>
-                <th>Name</th>
-                <th>Phone</th>
+                <td>@item.id</td>
+                <td>@item.name</td>
+                <td>@item.phone_number</td>
             </tr>
+        }
 
-            @foreach (People item in Model)
-            {
-                <tr>
-                    <td>@item.id</td>
-                    <td>@item.name</td>
-                    <td>@item.phone_number</td>
-                </tr>
-            }
-
-        </table>
-    </div>
-    <script>
+    </table>
+</div>
+<script>
     function show() {
         console.log("click");
 
@@ -89,6 +94,7 @@
                 phone_number: '',
             },
             editItem: {},
+            delItem: {},
                 msg: []
             },
             methods: {
@@ -118,7 +124,20 @@
                     }).catch((err) => {
                         console.error(err)
                     });
+                },
+
+                 delData() {
+                     const _url = '@Url.Action("DeletePeople", "People")';
+                     const _data = this.delItem;
+
+                axios.post(_url, _data).then((res)=> {
+                    let data = response.data;
+                     console.log(data)
+                }).catch((err) => {
+                    console.error(err)
+                });
                 }
+
             }
         })
-    </script>
+</script>

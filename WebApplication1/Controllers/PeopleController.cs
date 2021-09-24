@@ -52,5 +52,15 @@ namespace WebApplication1.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult DeletePeople(string id)
+        {
+            UserRepository _repository = new UserRepository();
+            bool _flag = _repository.DelData(id);
+
+            return Content(_flag.ToString().ToLower());
+        }
+
+
     }
 }

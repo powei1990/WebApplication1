@@ -77,5 +77,22 @@ namespace WebApplication1.Models.Repository
 
             return _flag;
         }
+
+        public bool DelData(string id)
+        {
+            bool _flag = false;
+            using (SqlDataBase db = new SqlDataBase())
+            {
+                List<SqlParameter> _parss = new List<SqlParameter>();
+                _parss.Add(new SqlParameter("@id", id));
+
+                string _table = "[Table_1]";
+                _sql = $"delete {_table} where [id] = @id ";
+
+                _flag = db.ToExecute(_sql, _parss.ToArray());
+            }
+
+            return _flag;
+        }
     }
 }
