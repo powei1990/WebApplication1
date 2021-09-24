@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
+using WebApplication1.Models.Repository;
 
 namespace WebApplication1.Controllers
 {
@@ -33,24 +34,8 @@ namespace WebApplication1.Controllers
         public ActionResult QueryAll(People data)
         {
             ViewBag.Message = "Your QueryAll page.";
-
-            List<People> _data = new List<People>();
-            List<string> _whr = new List<string>();
-            List<SqlParameter> _par = new List<SqlParameter>();
-
-            if (!string.IsNullOrEmpty(data.name))
-            {
-                _whr.Add("[name] like '%' + @name + '%'");
-                _par.Add(new SqlParameter("@name", data.name));
-            }
-            using (SqlDataBase db = new SqlDataBase())
-            {
-
-                string _sql = $"SELECT TOP (1000) [id] ,[name]  ,[phone_number] FROM[paulsql].[dbo].[Table_1]";
-                DataTable _dt = db.ToDataTable(_sql);
-
-                _data = DataTableHelper.ToList<People>(_dt).ToList();
-            }
+            UserRepository _repository = new UserRepository();
+            List<People> _data = _repository.getList(data);
 
             return Content(JsonConvert.SerializeObject(_data), "application/json");
         }
