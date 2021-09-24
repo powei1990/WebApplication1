@@ -94,5 +94,33 @@ namespace WebApplication1.Models.Repository
 
             return _flag;
         }
+
+        public bool EditPeople(People editdata)
+        {
+            bool _flag = false;
+            using (SqlDataBase db = new SqlDataBase())
+            {
+                List<string> _col = new List<string>();
+                List<SqlParameter> _par = new List<SqlParameter>();
+
+                //_col.Add("id");
+                _par.Add(new SqlParameter("@id", editdata.id));
+                _col.Add("name");
+                _par.Add(new SqlParameter("@name", editdata.name));
+                _col.Add("phone_number");
+                _par.Add(new SqlParameter("@phone_number", editdata.phone_number));
+
+
+                string _table = "[Table_1]";
+                string _valueStr = string.Join(", ",_col.ToArray());
+
+                _sql = $" UPDATE {_table} SET {_valueStr} ";
+                _sql += $"where id=@id";
+                _flag = db.ToExecute(_sql, _par.ToArray());
+            }
+
+            return _flag;
+        }
+
     }
 }

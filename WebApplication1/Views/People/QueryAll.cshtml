@@ -27,6 +27,14 @@
         <button type="button" class="btn btn-primary" @@click="delData()">刪除</button>
     </div>
 
+    <hr />
+    <div>
+        <input type="text" v-model="editItem.id" />
+        <input type="text" v-model="editItem.name" />
+        <input type="text" v-model="editItem.phone_number" />
+        <button type="button" class="btn btn-primary" @@click="editData()">修改</button>
+    </div>
+
 
     <p>{{ msg.name }}</p>
     <table>
@@ -130,12 +138,23 @@
                      const _url = '@Url.Action("DeletePeople", "People")';
                      const _data = this.delItem;
 
-                axios.post(_url, _data).then((res)=> {
-                    let data = response.data;
-                     console.log(data)
-                }).catch((err) => {
+                    axios.post(_url, _data).then((res)=> {
+                        let data = response.data;
+                        console.log(data)
+                    }).catch((err) => {
                     console.error(err)
-                });
+                    });
+                },
+
+                editData() {
+                    const _url = '@Url.Action("EditPeople", "People")';
+                    const _data = this.editItem;
+                    axios.post(_url, _data).then((res) => {
+                        let data = response.data;
+                        console.log(data)
+                    }).catch((err) => {
+                        console.error(err)
+                    });
                 }
 
             }

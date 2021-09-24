@@ -61,6 +61,13 @@ namespace WebApplication1.Controllers
             return Content(_flag.ToString().ToLower());
         }
 
+        public ActionResult EditPeople(People editdata)
+        {
+            UserRepository _repository = new UserRepository();
+            bool  _flag = _repository.EditPeople(editdata);
+
+            return Json(_flag);
+        }
 
     }
 }
