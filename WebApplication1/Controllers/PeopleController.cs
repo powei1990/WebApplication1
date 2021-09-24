@@ -40,5 +40,16 @@ namespace WebApplication1.Controllers
             return Content(JsonConvert.SerializeObject(_data), "application/json");
         }
 
+
+        //[HttpPost]
+        //public ActionResult UserSearch(People search)
+        //{
+        //    UserRepository _repository = new UserRepository();
+        //    List<People> _data = _repository.getList(search);
+
+        //    return Content(JsonConvert.SerializeObject(_data), "application/json");
+        //}
+
+
     }
 }

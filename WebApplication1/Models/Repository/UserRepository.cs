@@ -20,13 +20,13 @@ namespace WebApplication1.Models.Repository
             
             if (!string.IsNullOrEmpty(query.name))
             {
-                _whr.Add("[Pwd] like '%' + @Pwd + '%'");
-                _par.Add(new SqlParameter("@Pwd", query.name));
+                _whr.Add("[name] like '%' + @name + '%'");
+                _par.Add(new SqlParameter("@name", query.name));
             }
             if (!string.IsNullOrEmpty(query.phone_number))
             {
-                _whr.Add("[Name] like '%' + @Name + '%'");
-                _par.Add(new SqlParameter("@Name", query.phone_number));
+                _whr.Add("[phone_number] like '%' + @phone_number + '%'");
+                _par.Add(new SqlParameter("@phone_number", query.phone_number));
             }
            
 
