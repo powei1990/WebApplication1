@@ -13,7 +13,7 @@ namespace WebApplication1.Controllers
 {
     public class PeopleController : Controller
     {
-
+        //會先按照controller名稱對應的資料夾尋找QueryAll.cshtml
         public ActionResult QueryAll()
         {
             List<People> _data = new List<People>();
@@ -25,6 +25,7 @@ namespace WebApplication1.Controllers
 
                 _data = DataTableHelper.ToList<People>(_dt).ToList();
             }
+            //這邊會回覆View然後把_data資料進去
             return View(_data);
         }
 

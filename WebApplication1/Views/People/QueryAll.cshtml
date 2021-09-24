@@ -10,8 +10,20 @@
     }
 </style>
 <div id="app">
-    <button type="button" class="btn btn-primary"  @@click="searchData()"> hit me</button>
+    <button type="button" class="btn btn-primary" @@click="searchData()"> hit me</button>
     <p>{{ msg }}</p>
+    <table>
+        <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>Phone</th>
+        </tr>
+        <tr v-for="item in msg" :key="item.price">
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.phone_number }}</td>
+        </tr>
+    </table>
 </div>
     <ul>
         @foreach (People item in Model)
