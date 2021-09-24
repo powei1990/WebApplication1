@@ -17,8 +17,8 @@
     </div>
     <hr />
     <div>
-        <input type="text" v-model="editItem.name" />
-        <input type="text" v-model="editItem.phone_number" />
+        <input type="text" v-model="addItem.name" />
+        <input type="text" v-model="addItem.phone_number" />
         <button type="button" class="btn btn-primary" @@click="addData()">新增</button>
     </div>
     <hr />
@@ -101,6 +101,7 @@
                 name: '',
                 phone_number: '',
             },
+            addItem: {},
             editItem: {},
             delItem: {},
                 msg: []
@@ -122,7 +123,7 @@
 
                  addData() {
                     const _url = '@Url.Action("AddPeople", "People")';
-                    const _data = this.editItem;
+                    const _data = this.addItem;
 
                     axios.post(_url, _data).then((res) => {
                         let data = response.data;
