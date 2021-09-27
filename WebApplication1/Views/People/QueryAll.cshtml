@@ -47,6 +47,10 @@
             <td>{{ item.id }}</td>
             <td>{{ item.name }}</td>
             <td>{{ item.phone_number }}</td>
+            <td>
+                <button type="button" class="btn btn-primary" @@click="editData2(item)">修改</button>
+                <button type="button" class="btn btn-primary" @@click="delData(item.id)">刪除</button>
+            </td>
         </tr>
     </table>
 </div>
@@ -97,10 +101,7 @@
     var app = new Vue({
             el: '#app',
         data: {
-            searchItem: {
-                name: '',
-                phone_number: '',
-            },
+            searchItem: {},
             addItem: {},
             editItem: {},
             delItem: {},
@@ -126,7 +127,8 @@
                     const _data = this.addItem;
 
                     axios.post(_url, _data).then((res) => {
-                        let data = response.data;
+                        let data = res.data;
+                        this.searchData();
                         //this.searchData();
                         //this.dialog.edit_view = false;
                         console.log(data)
@@ -135,12 +137,15 @@
                     });
                 },
 
-                 delData() {
+                 delData(id) {
                      const _url = '@Url.Action("DeletePeople", "People")';
-                     const _data = this.delItem;
+                     const _data = {
+                         id: id
+                     };
 
                     axios.post(_url, _data).then((res)=> {
-                        let data = response.data;
+                        let data = res.data;
+                        this.searchData();
                         console.log(data)
                     }).catch((err) => {
                     console.error(err)
@@ -151,11 +156,16 @@
                     const _url = '@Url.Action("EditPeople", "People")';
                     const _data = this.editItem;
                     axios.post(_url, _data).then((res) => {
-                        let data = response.data;
+                        let data = res.data;
+                        this.searchData();
                         console.log(data)
                     }).catch((err) => {
                         console.error(err)
                     });
+                },
+
+                editData2(item) {
+                    this.editItem = Object.assign({}, item);
                 }
 
             }
